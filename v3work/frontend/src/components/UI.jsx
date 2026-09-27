@@ -1,0 +1,11 @@
+import React from 'react'
+export function Chip({tone='green',children}){return <span className={`chip chip-${tone}`}>{children}</span>}
+export function Columns({gap='20px',children,style}){return <div className="columns" style={{gap,...style}}>{children}</div>}
+export function Col({flex=1,minWidth='260px',children}){return <div style={{flex,minWidth}}>{children}</div>}
+export function Metric({label,value,delta,inverse}){return <div className="deck-card metric-card"><div className="metric-label">{label}</div><div className="metric-value">{value}</div>{delta&&<div className={`metric-delta ${inverse?'inverse':''}`}>{delta}</div>}</div>}
+export function Tabs({tabs,active,onChange}){return <div className="tabs" role="tablist">{tabs.map(t=><button key={t} role="tab" aria-selected={active===t} onClick={()=>onChange(t)} className={`tab-btn ${active===t?'active':''}`}>{t}</button>)}</div>}
+function pretty(v){return String(v).replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase())}
+function format(v,c){if(v===null||v===undefined||v==='')return '—';if(c==='sif_probability')return `${(Number(v)*100).toFixed(1)}%`;if(c==='priority_score')return Number(v).toFixed(2);return String(v)}
+export function DataTable({columns=[],rows=[],height=420,labels={}}){return <div className="table-shell" style={{maxHeight:height}}><table className="data-table"><thead><tr>{columns.map(c=><th key={c}>{labels[c]||pretty(c)}</th>)}</tr></thead><tbody>{rows.length?rows.map((r,i)=><tr key={r.report_id||i}>{columns.map(c=><td key={c} data-label={labels[c]||pretty(c)}>{format(r[c],c)}</td>)}</tr>):<tr><td colSpan={Math.max(columns.length,1)} className="table-empty">No records match the current filters.</td></tr>}</tbody></table><div className="table-mobile-note">On a smaller screen, open a report row or scroll horizontally to see additional information.</div></div>}
+export function Alert({type='warning',children}){return <div className={`alert-${type}`} role={type==='error'?'alert':'status'}>{children}</div>}
+export function Panel({title,subtitle,actions,children,id,className=''}){return <section id={id} className={`intelligence-panel ${className}`}><div className="intelligence-panel-header"><div><h2>{title}</h2>{subtitle&&<p>{subtitle}</p>}</div>{actions}</div>{children}</section>}

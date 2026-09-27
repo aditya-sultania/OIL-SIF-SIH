@@ -1,0 +1,394 @@
+{
+  "Alabama": {
+    "x": 0.7499,
+    "y": 0.79153,
+    "lat": 33.0186,
+    "lon": -86.7972,
+    "inset": false
+  },
+  "Alaska": {
+    "x": 0.08,
+    "y": 0.16,
+    "lat": 60.042,
+    "lon": -151.8857,
+    "inset": true
+  },
+  "American Samoa": {
+    "x": 0.92,
+    "y": 0.91,
+    "lat": -5.3594,
+    "lon": -170.6969,
+    "inset": true
+  },
+  "Arizona": {
+    "x": 0.30328,
+    "y": 0.75934,
+    "lat": 33.1244,
+    "lon": -111.3929,
+    "inset": false
+  },
+  "Arkansas": {
+    "x": 0.6443,
+    "y": 0.72119,
+    "lat": 35.1151,
+    "lon": -92.5054,
+    "inset": false
+  },
+  "California": {
+    "x": 0.18347,
+    "y": 0.64206,
+    "lat": 34.8507,
+    "lon": -118.6381,
+    "inset": false
+  },
+  "Colorado": {
+    "x": 0.43337,
+    "y": 0.53096,
+    "lat": 39.6067,
+    "lon": -104.9504,
+    "inset": false
+  },
+  "Connecticut": {
+    "x": 0.95367,
+    "y": 0.38133,
+    "lat": 41.5068,
+    "lon": -72.8521,
+    "inset": false
+  },
+  "Delaware": {
+    "x": 0.92086,
+    "y": 0.48656,
+    "lat": 39.2987,
+    "lon": -75.6098,
+    "inset": false
+  },
+  "District Of Columbia": {
+    "x": 0.77,
+    "y": 0.45,
+    "lat": 38.9492,
+    "lon": -77.386,
+    "inset": false
+  },
+  "Florida": {
+    "x": 0.8588,
+    "y": 0.9691,
+    "lat": 28.0005,
+    "lon": -81.7256,
+    "inset": false
+  },
+  "Georgia": {
+    "x": 0.80298,
+    "y": 0.76804,
+    "lat": 33.3152,
+    "lon": -83.8195,
+    "inset": false
+  },
+  "Guam": {
+    "x": 0.92,
+    "y": 0.83,
+    "lat": 13.8449,
+    "lon": 140.2993,
+    "inset": true
+  },
+  "Hawaii": {
+    "x": 0.18,
+    "y": 0.84,
+    "lat": 21.6107,
+    "lon": -152.6692,
+    "inset": true
+  },
+  "Idaho": {
+    "x": 0.28498,
+    "y": 0.30864,
+    "lat": 44.068,
+    "lon": -115.1959,
+    "inset": false
+  },
+  "Illinois": {
+    "x": 0.70426,
+    "y": 0.47139,
+    "lat": 41.2096,
+    "lon": -88.5052,
+    "inset": false
+  },
+  "Indiana": {
+    "x": 0.73984,
+    "y": 0.51719,
+    "lat": 39.9108,
+    "lon": -86.4922,
+    "inset": false
+  },
+  "Iowa": {
+    "x": 0.63908,
+    "y": 0.46059,
+    "lat": 41.6625,
+    "lon": -92.4914,
+    "inset": false
+  },
+  "Kansas": {
+    "x": 0.5685,
+    "y": 0.59435,
+    "lat": 38.3509,
+    "lon": -96.8147,
+    "inset": false
+  },
+  "Kentucky": {
+    "x": 0.74292,
+    "y": 0.61311,
+    "lat": 37.4996,
+    "lon": -86.6307,
+    "inset": false
+  },
+  "Louisiana": {
+    "x": 0.66812,
+    "y": 0.89496,
+    "lat": 30.7308,
+    "lon": -91.4319,
+    "inset": false
+  },
+  "Maine": {
+    "x": 0.98394,
+    "y": 0.2488,
+    "lat": 44.3326,
+    "lon": -69.7993,
+    "inset": false
+  },
+  "Maryland": {
+    "x": 0.90087,
+    "y": 0.50252,
+    "lat": 39.1065,
+    "lon": -76.8857,
+    "inset": false
+  },
+  "Massachusetts": {
+    "x": 0.97079,
+    "y": 0.34284,
+    "lat": 42.2346,
+    "lon": -71.4906,
+    "inset": false
+  },
+  "Michigan": {
+    "x": 0.77447,
+    "y": 0.39318,
+    "lat": 42.8119,
+    "lon": -83.8842,
+    "inset": false
+  },
+  "Minnesota": {
+    "x": 0.61938,
+    "y": 0.32226,
+    "lat": 45.1548,
+    "lon": -93.5851,
+    "inset": false
+  },
+  "Mississippi": {
+    "x": 0.70406,
+    "y": 0.81321,
+    "lat": 32.6627,
+    "lon": -89.3512,
+    "inset": false
+  },
+  "Missouri": {
+    "x": 0.64446,
+    "y": 0.58834,
+    "lat": 38.4467,
+    "lon": -92.3325,
+    "inset": false
+  },
+  "Montana": {
+    "x": 0.36549,
+    "y": 0.23283,
+    "lat": 46.6111,
+    "lon": -110.521,
+    "inset": false
+  },
+  "Nebraska": {
+    "x": 0.55911,
+    "y": 0.48171,
+    "lat": 41.1746,
+    "lon": -97.425,
+    "inset": false
+  },
+  "Nevada": {
+    "x": 0.2334,
+    "y": 0.57243,
+    "lat": 37.089,
+    "lon": -116.3759,
+    "inset": false
+  },
+  "New Hampshire": {
+    "x": 0.96535,
+    "y": 0.30479,
+    "lat": 43.221,
+    "lon": -71.474,
+    "inset": false
+  },
+  "New Jersey": {
+    "x": 0.93233,
+    "y": 0.43894,
+    "lat": 40.3426,
+    "lon": -74.5827,
+    "inset": false
+  },
+  "New Mexico": {
+    "x": 0.39594,
+    "y": 0.76377,
+    "lat": 33.6158,
+    "lon": -106.3214,
+    "inset": false
+  },
+  "New York": {
+    "x": 0.91565,
+    "y": 0.38385,
+    "lat": 41.8662,
+    "lon": -75.1546,
+    "inset": false
+  },
+  "North Carolina": {
+    "x": 0.88165,
+    "y": 0.66219,
+    "lat": 35.352,
+    "lon": -78.9732,
+    "inset": false
+  },
+  "North Dakota": {
+    "x": 0.525,
+    "y": 0.24164,
+    "lat": 47.1311,
+    "lon": -99.8559,
+    "inset": false
+  },
+  "Northern Mariana Islands": {
+    "x": 0.92,
+    "y": 0.75,
+    "lat": 15.1756,
+    "lon": 145.7433,
+    "inset": true
+  },
+  "Ohio": {
+    "x": 0.79811,
+    "y": 0.48116,
+    "lat": 40.474,
+    "lon": -82.8468,
+    "inset": false
+  },
+  "Oklahoma": {
+    "x": 0.56753,
+    "y": 0.70126,
+    "lat": 35.6665,
+    "lon": -96.8406,
+    "inset": false
+  },
+  "Oregon": {
+    "x": 0.18033,
+    "y": 0.24823,
+    "lat": 44.3413,
+    "lon": -122.2304,
+    "inset": false
+  },
+  "Pennsylvania": {
+    "x": 0.88932,
+    "y": 0.45132,
+    "lat": 40.4752,
+    "lon": -77.2188,
+    "inset": false
+  },
+  "Puerto Rico": {
+    "x": 0.82,
+    "y": 0.89,
+    "lat": 18.38,
+    "lon": -66.1206,
+    "inset": true
+  },
+  "Rhode Island": {
+    "x": 0.97222,
+    "y": 0.36189,
+    "lat": 41.7563,
+    "lon": -71.5763,
+    "inset": false
+  },
+  "South Carolina": {
+    "x": 0.85814,
+    "y": 0.74845,
+    "lat": 33.4176,
+    "lon": -80.7276,
+    "inset": false
+  },
+  "South Dakota": {
+    "x": 0.54985,
+    "y": 0.36988,
+    "lat": 43.9697,
+    "lon": -98.0781,
+    "inset": false
+  },
+  "Tennessee": {
+    "x": 0.7556,
+    "y": 0.68161,
+    "lat": 35.728,
+    "lon": -86.132,
+    "inset": false
+  },
+  "Texas": {
+    "x": 0.55442,
+    "y": 0.88066,
+    "lat": 31.1747,
+    "lon": -97.4936,
+    "inset": false
+  },
+  "Utah": {
+    "x": 0.31997,
+    "y": 0.47231,
+    "lat": 40.35,
+    "lon": -111.99,
+    "inset": false
+  },
+  "Vermont": {
+    "x": 0.944,
+    "y": 0.2812,
+    "lat": 44.0478,
+    "lon": -72.5733,
+    "inset": false
+  },
+  "Virgin Islands": {
+    "x": 0.86,
+    "y": 0.84,
+    "lat": 19.1317,
+    "lon": -66.6394,
+    "inset": true
+  },
+  "Virginia": {
+    "x": 0.91124,
+    "y": 0.57346,
+    "lat": 37.2638,
+    "lon": -76.7642,
+    "inset": false
+  },
+  "Washington": {
+    "x": 0.20314,
+    "y": 0.12808,
+    "lat": 47.5108,
+    "lon": -122.0085,
+    "inset": false
+  },
+  "West Virginia": {
+    "x": 0.8387,
+    "y": 0.52991,
+    "lat": 38.9717,
+    "lon": -80.686,
+    "inset": false
+  },
+  "Wisconsin": {
+    "x": 0.69048,
+    "y": 0.36977,
+    "lat": 43.8001,
+    "lon": -89.0914,
+    "inset": false
+  },
+  "Wyoming": {
+    "x": 0.38529,
+    "y": 0.35606,
+    "lat": 43.7029,
+    "lon": -108.5961,
+    "inset": false
+  }
+}

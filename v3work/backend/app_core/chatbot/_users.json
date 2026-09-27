@@ -1,0 +1,37 @@
+{
+  "EMP-1001": {
+    "password": "8f7ef3526b3cb8cfb948a794821ceb0985947bce2e123b208326569f0dc5f8e1",
+    "role": "Employee / Worker",
+    "name": "Demo Employee"
+  },
+  "HSE-1001": {
+    "password": "d4e70b9e18788083aec26b74a0ebba63f7de3e6c2fba013285b67e9c26d917d3",
+    "role": "HSE Officer",
+    "name": "Demo HSE Officer"
+  },
+  "MGR-1001": {
+    "password": "76d1727213654fcfed448a9bb48a899a71fcf6ba177fd2a23524db3b66a6918d",
+    "role": "Management",
+    "name": "Demo Manager"
+  },
+  "HSE-3426": {
+    "password": "60895f14e4b2d459814f3949737fc4dff4fdb469ba4108de6915adbd18e63c30",
+    "role": "HSE Officer",
+    "name": "garima hota"
+  },
+  "HSE-8701": {
+    "password": "60895f14e4b2d459814f3949737fc4dff4fdb469ba4108de6915adbd18e63c30",
+    "role": "HSE Officer",
+    "name": "garima hota"
+  },
+  "HSE-6031": {
+    "password": "60895f14e4b2d459814f3949737fc4dff4fdb469ba4108de6915adbd18e63c30",
+    "role": "HSE Officer",
+    "name": "garima hota"
+  },
+  "HSE-7506": {
+    "password": "2de5c275a7bcde216e835f3288f29b27efaf27bdcb1c2675e90625966336a287",
+    "role": "HSE Officer",
+    "name": "lira"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "employee": {
+    "salt": "a6d81e1344a34f5bb35664030615bcb7",
+    "password_hash": "43fae2e4c0cecbcb19d2a37e9632539db214907668a94a46055748cdf92fa1fa",
+    "role": "Employee / Worker",
+    "name": "Safety Employee",
+    "created_at": 1788161054.1356056
+  },
+  "hse": {
+    "salt": "27ffc82b35c532352aa8e60cc73e41f7",
+    "password_hash": "0e82180dd9e9df98342ce48a32a5653dfbf6ca28646ecedfb77e9fb013d4f967",
+    "role": "HSE Officer",
+    "name": "HSE Safety Officer",
+    "created_at": 1788161054.1356056
+  },
+  "management": {
+    "salt": "72cc130819a1025701d17e9ba8862105",
+    "password_hash": "26b24fd70f49936cdf6a9422d7a291a3987defcc75d5419e5a94e4aaf8bccdc4",
+    "role": "Management",
+    "name": "Management User",
+    "created_at": 1788161054.1356056
+  },
+  "suhu": {
+    "salt": "56d5dfaf63a90c33d8ac8e1392d48d4c",
+    "password_hash": "c24430e22afa94f0a0081b495e8fe9179d23f19a1b52bcd51d437686c104ec77",
+    "role": "HSE Officer",
+    "name": "suhani",
+    "created_at": 1788161074.9081817
+  },
+  "mossbila": {
+    "salt": "d92d1aff2275b0f37b5c5b9f31eafedd",
+    "password_hash": "6980b46a8454d816c394bb68ffd2df67d6711a35e6370d018984791cc7a9c62e",
+    "role": "Employee / Worker",
+    "name": "moss",
+    "created_at": 1788161160.5875473
+  },
+  "garima": {
+    "salt": "8a16e85bf4778c7a2e64412109f89c2a",
+    "password_hash": "7af2ab1cb17252fdc0ddfe30a237e220508210b13fb818c06c44a8122134b273",
+    "role": "Management",
+    "name": "garima",
+    "created_at": 1788161491.464644
+  },
+  "mossbilla": {
+    "salt": "eba32c5be121826443718de66a2dd6c8",
+    "password_hash": "d06922d18163abfef039d1af671a6b4c5cb5217eef59749fd6848a019ef870a8",
+    "role": "Employee / Worker",
+    "name": "mossbilla",
+    "created_at": 1788164122.482986
+  }
+}

@@ -1,0 +1,6 @@
+report_id,site,location,report_type,narrative
+R001,Site A,Process Unit,Near Miss,Technician started maintenance without verifying electrical isolation. The equipment was still energized.
+R002,Site A,Vessel Area,Near Miss,Worker entered the vessel without gas testing before inspection.
+R003,Site B,Office,Unsafe Condition,Minor housekeeping issue was found near the office entrance.
+R004,Site C,Lifting Area,Near Miss,Worker stood below a suspended load during lifting.
+R005,Site B,Workshop,Unsafe Act,Hot work was started without a proper permit and isolation.
