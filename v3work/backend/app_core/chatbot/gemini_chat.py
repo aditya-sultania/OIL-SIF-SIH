@@ -1,4 +1,5 @@
 import os
+import time
 
 from dotenv import load_dotenv
 from google import genai
@@ -26,6 +27,61 @@ if not API_KEY:
 client = genai.Client(
     api_key=API_KEY
 )
+
+
+# ============================================================
+# MODEL CONFIGURATION
+# ============================================================
+
+
+# Primary model can be changed from Render/local environment
+# without modifying the source code.
+PRIMARY_MODEL = os.getenv(
+    "GEMINI_MODEL"
+)
+
+FALLBACK_MODEL = os.getenv(
+    "GEMINI_FALLBACK_MODEL"
+)
+
+MAX_RETRIES = 2
+
+
+def is_retryable_error(exc):
+    """
+    Identify temporary Gemini/API failures where retrying or
+    switching models makes sense.
+    """
+
+    message = str(exc).lower()
+
+    retryable_markers = (
+        "503",
+        "unavailable",
+        "high demand",
+        "overloaded",
+        "429",
+        "resource exhausted",
+        "too many requests",
+        "500",
+        "internal",
+        "deadline exceeded",
+        "timeout",
+    )
+
+    return any(marker in message for marker in retryable_markers)
+
+
+def wait_before_retry(attempt):
+    """
+    Small exponential backoff.
+
+    attempt 0 -> 1 second
+    attempt 1 -> 2 seconds
+    """
+
+    delay = 2 ** attempt
+    time.sleep(delay)
 
 
 # ============================================================
@@ -283,6 +339,58 @@ assessment, or incident investigation.
 # CHAT
 # ============================================================
 
+def create_chat(model, tools):
+    """
+    Create a Gemini chat session using the requested model.
+    """
+
+    return client.chats.create(
+        model=model,
+        config=types.GenerateContentConfig(
+            system_instruction=SYSTEM_PROMPT,
+            tools=tools,
+            temperature=0.2,
+        ),
+    )
+
+
+def send_with_retry(chat, question):
+    """
+    Send a message with retry handling for temporary Gemini
+    availability/rate-limit errors.
+    """
+
+    last_error = None
+
+    for attempt in range(MAX_RETRIES + 1):
+
+        try:
+            return chat.send_message(
+                question.strip()
+            )
+
+        except Exception as exc:
+            last_error = exc
+
+            if not is_retryable_error(exc):
+                raise
+
+            if attempt < MAX_RETRIES:
+                print(
+                    f"[OIL-SIF] Gemini temporary error "
+                    f"(attempt {attempt + 1}/{MAX_RETRIES + 1}): {exc}"
+                )
+
+                wait_before_retry(attempt)
+
+            else:
+                print(
+                    f"[OIL-SIF] Gemini primary model unavailable: {exc}"
+                )
+
+    raise last_error
+
+
 def ask_gemini(
     question,
     tools,
@@ -291,26 +399,124 @@ def ask_gemini(
     """
     Send a question to Gemini while preserving conversation
     context through the Gemini Chat session.
+
+    The primary model is tried first. If Gemini reports a
+    temporary availability problem, the fallback model is used.
     """
 
     if not question or not question.strip():
         return "Please enter a question.", chat
 
+    # --------------------------------------------------------
     # Create a new chat only when one does not already exist.
+    # --------------------------------------------------------
+
     if chat is None:
 
-        chat = client.chats.create(
-            model="gemini-3.6-flash",
-            config=types.GenerateContentConfig(
-                system_instruction=SYSTEM_PROMPT,
-                tools=tools,
-                temperature=0.2,
-            ),
-        )
+        try:
+            chat = create_chat(
+                PRIMARY_MODEL,
+                tools
+            )
 
-    response = chat.send_message(
-        question.strip()
-    )
+            response = send_with_retry(
+                chat,
+                question
+            )
+
+        except Exception as primary_error:
+
+            print(
+                f"[OIL-SIF] Primary Gemini model failed: "
+                f"{primary_error}"
+            )
+
+            # ------------------------------------------------
+            # Fallback model
+            # ------------------------------------------------
+
+            try:
+
+                print(
+                    f"[OIL-SIF] Trying fallback Gemini model: "
+                    f"{FALLBACK_MODEL}"
+                )
+
+                chat = create_chat(
+                    FALLBACK_MODEL,
+                    tools
+                )
+
+                response = send_with_retry(
+                    chat,
+                    question
+                )
+
+            except Exception as fallback_error:
+
+                print(
+                    f"[OIL-SIF] Fallback Gemini model failed: "
+                    f"{fallback_error}"
+                )
+
+                return (
+                    "The AI Copilot is temporarily unavailable. "
+                    "Please try again in a moment. "
+                    "The OIL-SIF dashboard and safety analysis "
+                    "features remain available.",
+                    None,
+                )
+
+    # --------------------------------------------------------
+    # Existing conversation
+    # --------------------------------------------------------
+
+    else:
+
+        try:
+
+            response = send_with_retry(
+                chat,
+                question
+            )
+
+        except Exception as exc:
+
+            print(
+                f"[OIL-SIF] Existing Gemini chat failed: {exc}"
+            )
+
+            # A chat session can become unusable after a model
+            # failure, so start a fresh session using the fallback.
+            try:
+
+                print(
+                    f"[OIL-SIF] Recreating chat using fallback "
+                    f"model: {FALLBACK_MODEL}"
+                )
+
+                chat = create_chat(
+                    FALLBACK_MODEL,
+                    tools
+                )
+
+                response = send_with_retry(
+                    chat,
+                    question
+                )
+
+            except Exception as fallback_error:
+
+                print(
+                    f"[OIL-SIF] Fallback chat failed: "
+                    f"{fallback_error}"
+                )
+
+                return (
+                    "The AI Copilot is temporarily unavailable. "
+                    "Please try again in a moment.",
+                    None,
+                )
 
     answer = response.text
 
@@ -330,8 +536,9 @@ def ask_gemini(
 def translate_text(text, target_language):
     """
     Translate an arbitrary piece of text into `target_language`
-    using a lightweight, tool-free Gemini call. Used to let users
-    translate any past chatbot answer on demand.
+    using a lightweight, tool-free Gemini call.
+
+    Primary model is tried first, followed by the fallback model.
     """
 
     if not text or not text.strip():
@@ -340,20 +547,51 @@ def translate_text(text, target_language):
     if not target_language or target_language == "English":
         return text
 
-    try:
-        response = client.models.generate_content(
-            model="gemini-3.6-flash",
-            contents=(
-                f"Translate the following text into {target_language}. "
-                f"Preserve report IDs, numbers, and technical terms. "
-                f"Return only the translated text, nothing else.\n\n"
-                f"TEXT:\n{text}"
-            ),
-        )
+    prompt = (
+        f"Translate the following text into {target_language}. "
+        f"Preserve report IDs, numbers, and technical terms. "
+        f"Return only the translated text, nothing else.\n\n"
+        f"TEXT:\n{text}"
+    )
 
-        translated = response.text
+    models_to_try = [
+        PRIMARY_MODEL,
+        FALLBACK_MODEL,
+    ]
 
-        return translated.strip() if translated else text
+    for model in models_to_try:
 
-    except Exception:
-        return text
+        for attempt in range(MAX_RETRIES + 1):
+
+            try:
+
+                response = client.models.generate_content(
+                    model=model,
+                    contents=prompt,
+                )
+
+                translated = response.text
+
+                return (
+                    translated.strip()
+                    if translated
+                    else text
+                )
+
+            except Exception as exc:
+
+                if not is_retryable_error(exc):
+                    print(
+                        f"[OIL-SIF] Translation error: {exc}"
+                    )
+                    return text
+
+                if attempt < MAX_RETRIES:
+                    wait_before_retry(attempt)
+                else:
+                    print(
+                        f"[OIL-SIF] Translation model "
+                        f"{model} unavailable: {exc}"
+                    )
+
+    return text

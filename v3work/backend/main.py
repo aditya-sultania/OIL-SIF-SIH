@@ -29,6 +29,7 @@ from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
 APP_ROOT = Path(__file__).parent
 APP_CORE = APP_ROOT / 'app_core'
 load_dotenv(APP_CORE / '.env')
@@ -396,7 +397,7 @@ OIL-SIF, SIF, HSE, AI, IOGP, LOTO, API, ID. Use clear, natural, professional UI 
 Items:
 {json.dumps(batch, ensure_ascii=False)}"""
                 response = client.models.generate_content(
-                    model='gemini-3.6-flash',
+                    model='GEMINI_MODEL',
                     contents=prompt,
                     config=types.GenerateContentConfig(
                         response_mime_type='application/json',
@@ -651,7 +652,7 @@ Guidance:
 - Do not invent an injury or hazard source not stated.
 Return JSON only."""
         response = client.models.generate_content(
-            model='gemini-3.6-flash',
+            model='GEMINI_MODEL',
             contents=prompt,
             config=types.GenerateContentConfig(temperature=0.0, response_mime_type='application/json')
         )
