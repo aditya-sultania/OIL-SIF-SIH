@@ -10,11 +10,15 @@ import base64
 import threading
 import smtplib
 import re
+import os
+import urllib.request
+from pathlib import Path
 from email.message import EmailMessage
 from urllib.request import Request, urlopen
 from datetime import datetime, timezone, timedelta
 from io import StringIO
 from pathlib import Path
+
 
 from dotenv import load_dotenv
 import joblib
@@ -29,6 +33,66 @@ APP_ROOT = Path(__file__).parent
 APP_CORE = APP_ROOT / 'app_core'
 load_dotenv(APP_CORE / '.env')
 sys.path.insert(0, str(APP_CORE))
+
+
+# ---------------------------------------------------------------------------
+# Deployment datasets
+# ---------------------------------------------------------------------------
+# The large datasets are kept out of GitHub's normal repository history and
+# stored as GitHub Release assets. Render downloads them automatically when
+# they are missing from app_core.
+DATASET_URLS = {
+    'January2015toNovember2025.csv':
+        'https://github.com/aditya-sultania/OIL-SIF-SIH/releases/download/datasets-v1/January2015toNovember2025.csv',
+    'SIF_Dashboard_Master_v4.csv':
+        'https://github.com/aditya-sultania/OIL-SIF-SIH/releases/download/datasets-v1/SIF_Dashboard_Master_v4.csv',
+}
+
+
+def ensure_datasets():
+    APP_CORE.mkdir(parents=True, exist_ok=True)
+
+    for filename, url in DATASET_URLS.items():
+        destination = APP_CORE / filename
+
+        if destination.exists() and destination.stat().st_size > 0:
+            print(f'[OIL-SIF] Dataset already present: {filename}')
+            continue
+
+        temp_destination = destination.with_suffix(destination.suffix + '.download')
+
+        print(f'[OIL-SIF] Downloading dataset: {filename}')
+        try:
+            if temp_destination.exists():
+                temp_destination.unlink()
+
+            request = Request(
+                url,
+                headers={'User-Agent': 'OIL-SIF-Render/1.0'},
+            )
+
+            with urlopen(request, timeout=120) as response, open(temp_destination, 'wb') as output:
+                while True:
+                    chunk = response.read(1024 * 1024)
+                    if not chunk:
+                        break
+                    output.write(chunk)
+
+            if not temp_destination.exists() or temp_destination.stat().st_size == 0:
+                raise RuntimeError('Downloaded file is empty.')
+
+            temp_destination.replace(destination)
+            print(f'[OIL-SIF] Dataset downloaded: {filename}')
+
+        except Exception as exc:
+            if temp_destination.exists():
+                temp_destination.unlink()
+            print(f'[OIL-SIF] Dataset download failed for {filename}: {exc}')
+            raise
+
+
+ensure_datasets()
+
 
 app = FastAPI(title='OIL-SIF API')
 app.add_middleware(
